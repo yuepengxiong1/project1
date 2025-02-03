@@ -24,7 +24,7 @@ public class IntNode
    public void addNodeAfter(int data, int item)   
    {
 	   IntNode tmpNode = this.link;
-      new IntNode(item, tmpNode, data);
+      new IntNode(data, tmpNode, item);
 
    }
    
@@ -35,7 +35,7 @@ public class IntNode
    // is removed from the linked list.
    public void removeNodeAfter( )   
    {
-	    // Implement me. 
+	   
    } 
    
    
