@@ -74,13 +74,14 @@ public class intrusionDetectorClass {
 		IntNode previous = null;
 		
 		//if the target is equal to the sequence number
-		System.out.println("Target: " + target + " head.getSe: " + head.getsequenceNumber(true) );
+		System.out.println("Target: " + target + " head.getSe: " + head.getsequenceNumber(true));// added for personal use, to see what happens
+
 	    if (target == head.getsequenceNumber(true))
 	    {
 	    	head = head.getLink(); //set head to be the sequence number containing its data
 	    }	
 	    else
-			//set previous to be head(list, target to find). setting the head to be the previous node
+			//set previous to be head(list, target to find). setting the head to be where sequenceNumber is equal to what node it is in with
 	        previous = head.findPrevious(head, target);
 	    
 			//if the previous is not nothing then

@@ -23,10 +23,11 @@ public class IntNode
    // The new node is added to the linked list at a position that comes immediately after the node whose method is activated.
    public void addNodeAfter(int data, int item)   
    {
-      //i did this to make it more sense. we are linking nodes together here
+      //i did this to make it more sense. we are linking nodes together here and defining sequence number with an item,
 	   IntNode nodeFromBefore = this.link;
       new IntNode(data, nodeFromBefore, item);
 
+      //add code to consider if the current node already have a next node. rearrange the links
    }
    
    
@@ -36,6 +37,8 @@ public class IntNode
    // is removed from the linked list.
    public void removeNodeAfter( )   
    {
+      //set this node of next to be pointing 2 locations after this one, and the same for the one 2 location after to point to this one
+      //if the element 2 locations away from this one is empty, then we just unlink this from the next one.
 	   this.link = null;
    } 
    
@@ -44,14 +47,9 @@ public class IntNode
    // Postcondition: The sequenceNumber of this node is returned, after setting detectionFlag to false.
    public int getsequenceNumber(boolean detectionFlg)   
    {
-      //if the parameter of the boolean flag is passed in true, we gonna return the sequence number
-      if (detectionFlg == true){
-         return sequenceNumber;
-      }
-
-      //otherwise we just return -1
-      return -1;
-
+      detectionFlg = false;
+      return sequenceNumber;
+      
    }
    
   
@@ -78,16 +76,21 @@ public class IntNode
    // is returned. If the linked list does not contain a node with sequenceNumber equal to target, then null is returned.   
    public IntNode findPrevious(IntNode head, int target)
    {
+      //need 2 sliders, slider1 checks for sequencesNymber equal to target, slider2 will follow that from node to node
       IntNode iterateIntNode = head;
 	   //in the IntNode head, we are going to find a sequence number that is equal to target
       //loop head from first one then iterate to the next one
-   
-      if(iterateIntNode.sequenceNumber == target){
-         return iterateIntNode;
-      } else {
-         //set iterate IntNode to become the next one in line
-         iterateIntNode = new IntNode(this.getsequenceNumber(true), this, this.data);
+      
+      while(iterateIntNode.sequenceNumber != target){
+
+         if(iterateIntNode.sequenceNumber == target){
+            return iterateIntNode;
+         } else {
+            //set iterate IntNode to become the next one in line
+            iterateIntNode = new IntNode(iterateIntNode.sequenceNumber, iterateIntNode.link, this.data);
+         }
       }
+      
       return null;
    }
 
@@ -98,7 +101,12 @@ public class IntNode
    // If no such node is found, the link to the last node in the linked list is returned. 
    public IntNode locatePredecessor(IntNode head, int target)
    {
-	    
+	    //want the link that comes before a node, return the link of the node from before
+       //2 slider references
+       //ex: we have first element where the sequenceNumber is 5, target is 6. We move from 5 to 7 because 5<6. 
+       
+      
+      
    }
   
 }
