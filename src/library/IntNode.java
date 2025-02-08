@@ -23,9 +23,14 @@ public class IntNode
    // The new node is added to the linked list at a position that comes immediately after the node whose method is activated.
    public void addNodeAfter(int data, int item)   
    {
+      System.out.println("Node: " + this.link + "\n" + "Data: " + data + "\n" + "Item: " + item);
+      IntNode storeNode = this.link;
       //i did this to make it more sense. we are linking nodes together here and defining sequence number with an item,
-	   IntNode nodeFromBefore = this.link;
-      new IntNode(data, nodeFromBefore, item);
+      this.link = new IntNode(item, link, data);
+
+      
+
+      
 
       //add code to consider if the current node already have a next node. rearrange the links
    }
@@ -104,7 +109,13 @@ public class IntNode
 	    //want the link that comes before a node, return the link of the node from before
        //2 slider references
        //ex: we have first element where the sequenceNumber is 5, target is 6. We move from 5 to 7 because 5<6. 
-       
+       //one slider: one that switches between node to node
+       //the other slider will check
+
+       IntNode node = this.link;
+       displayNodeData(node);
+
+       return node;
       
       
    }
