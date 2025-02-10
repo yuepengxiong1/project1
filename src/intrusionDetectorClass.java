@@ -74,7 +74,7 @@ public class intrusionDetectorClass {
 		IntNode previous = null;
 		
 		//if the target is equal to the sequence number
-		System.out.println("Target: " + target + " head.getSe: " + head.getsequenceNumber(true));// added for personal use, to see what happens
+		//System.out.println("Target: " + target + " head.getSe: " + head.getsequenceNumber(true));// added for personal use, to see what happens
 
 	    if (target == head.getsequenceNumber(true))
 	    {

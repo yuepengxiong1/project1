@@ -1,3 +1,6 @@
+
+//sorry for the comments. i wanted to see how this program is functioning.
+
 package library;
 
 public class IntNode
@@ -23,14 +26,21 @@ public class IntNode
    // The new node is added to the linked list at a position that comes immediately after the node whose method is activated.
    public void addNodeAfter(int data, int item)   
    {
-      System.out.println("Node: " + this.link + "\n" + "Data: " + data + "\n" + "Item: " + item);
-      IntNode storeNode = this.link;
-      //i did this to make it more sense. we are linking nodes together here and defining sequence number with an item,
-      this.link = new IntNode(item, link, data);
+   
+      //System.out.println("Current Node link to next node (this.link): " + this.link + "\n" + "Data to add: " + data + "\n" + "Item to add: " + item);
+      IntNode hasNextNode = this.link;
+      //check where to insert the node
+      //IntNode storeNode = this.link; //purpose to hold the last intnode that was seen. to be used to check for sequenceNumber from before
+      //IntNode nextNode = this.link.link; //will store the next node. 
 
-      
-
-      
+      //if this.link has a link that is nothing (meaning the next node is empty), then add a new link
+      if(hasNextNode == null){
+         IntNode addNewNode = new IntNode(item, null, data); // data, null (because its the last item on the list), item)
+         link = addNewNode;
+        // System.out.println("this.link: " + this.link);
+      } /*else if (this.link.sequenceNumber <= data && this.link.link.sequenceNumber < data) { //if starting node has seqNumber that is less than the data we are putting in, and our next node does not exits, we add an entry at the end
+         System.out.println("i have not implemented this yet");
+      } */
 
       //add code to consider if the current node already have a next node. rearrange the links
    }
@@ -44,6 +54,7 @@ public class IntNode
    {
       //set this node of next to be pointing 2 locations after this one, and the same for the one 2 location after to point to this one
       //if the element 2 locations away from this one is empty, then we just unlink this from the next one.
+      IntNode currentNode = this;
 	   this.link = null;
    } 
    
@@ -72,7 +83,31 @@ public class IntNode
    // are displayed on the monitor. 
    public void displayNodeData(IntNode head)
    {
-      System.out.println("The (sequence number, data) pairs in the linked list are: (" + sequenceNumber + "," + data + ")");
+      IntNode nodeSlider = head; //passes in the variable containing all of our values. we start at the top.
+      int counter = 0; //for the print statements and formating it
+      //System.out.println(nodeSlider.link);
+
+      //while node is not null, we print out the nodes
+      while (nodeSlider != null){
+
+         //i dont know if this is the correct way of doing this to output to how its like in the pdf file
+         if (counter == 0){
+            System.out.print("The (sequence number, data) pairs in the linked list are: (" + nodeSlider.sequenceNumber + "," + nodeSlider.data + ")");
+         } else {
+            System.out.print(" (" + nodeSlider.sequenceNumber + "," + nodeSlider.data + ")");
+         }
+         
+         //set the slider to link to the next node
+         nodeSlider = nodeSlider.link;
+
+         //if our slider is null, we exit. idk if this is needed or not. probably not
+         if(nodeSlider == null){
+            System.out.println("");
+            return;
+         }
+         counter++;
+      }
+      
    }
    
    
@@ -82,18 +117,31 @@ public class IntNode
    public IntNode findPrevious(IntNode head, int target)
    {
       //need 2 sliders, slider1 checks for sequencesNymber equal to target, slider2 will follow that from node to node
-      IntNode iterateIntNode = head;
+      IntNode iterateIntNode = head; //used to iterate
+      IntNode nodeFromBefore = head; //used to store the node from the iterateNode varaible
 	   //in the IntNode head, we are going to find a sequence number that is equal to target
       //loop head from first one then iterate to the next one
       
       while(iterateIntNode.sequenceNumber != target){
-
+        // System.out.println("Current SeqNum:" + iterateIntNode.sequenceNumber + " Target: " + target);
          if(iterateIntNode.sequenceNumber == target){
-            return iterateIntNode;
+            return nodeFromBefore;
          } else {
             //set iterate IntNode to become the next one in line
-            iterateIntNode = new IntNode(iterateIntNode.sequenceNumber, iterateIntNode.link, this.data);
+            nodeFromBefore = iterateIntNode;
+            iterateIntNode = iterateIntNode.link;
+
+            //i felt like the try catch the best of what i am trynna do here
+            try {
+               if (iterateIntNode.sequenceNumber == target){
+                  return nodeFromBefore;
+               }
+            } catch (Exception e) {
+               //System.out.println("No node was found");
+               return null;
+            }     
          }
+ 
       }
       
       return null;
@@ -112,10 +160,32 @@ public class IntNode
        //one slider: one that switches between node to node
        //the other slider will check
 
-       IntNode node = this.link;
-       displayNodeData(node);
+       IntNode iterateIntNode = head;
+       //IntNode nextNode = head.link;
 
-       return node;
+       //look through the list of nodes to see where to place our new node
+
+       
+
+      while(iterateIntNode.sequenceNumber < target){
+         //System.out.println("Current SeqNum:" + iterateIntNode.sequenceNumber + " Target: " + target);
+
+         //return the last node of the list
+         if(iterateIntNode.link == null){
+            return iterateIntNode;
+         }
+
+         //if our node right now is smaller or equal to our target and our target is less than the next node's seqNumber, return the node from before
+         if((iterateIntNode.sequenceNumber <= target) && target < iterateIntNode.link.sequenceNumber){
+            return iterateIntNode;
+         } else {
+            //set iterate IntNode to become the next one in line
+            iterateIntNode = iterateIntNode.link;
+            //nextNode = iterateIntNode.link.link;
+         }
+      }
+
+      return null;
       
       
    }
