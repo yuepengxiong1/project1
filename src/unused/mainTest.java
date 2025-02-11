@@ -1,3 +1,4 @@
+package unused;
 import library.IntNode;
 
 public class mainTest {
@@ -27,7 +28,9 @@ public class mainTest {
 	    head.displayNodeData(head);
         addNodeInOder(15, 308329763);
 	    head.displayNodeData(head);
-	    
+
+	    addNodeInOder(14, 108329763);
+	    head.displayNodeData(head);
 	    System.out.println("End of run.\n");
 	    
 	}

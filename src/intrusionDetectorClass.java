@@ -105,7 +105,7 @@ public class intrusionDetectorClass {
         
 		//if the head is an empty object
         if (head == null)
-        {
+        {   
            head = new IntNode(target, head, data);	 //create an entry with target, on variable, with data
            return head;	 //return the variable
         }

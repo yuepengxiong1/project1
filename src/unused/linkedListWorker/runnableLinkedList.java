@@ -1,5 +1,5 @@
-package linkedListWorker;
-import linkedListPackage.IntNode;
+package unused.linkedListWorker;
+import unused.linkedListPackage.IntNode;
 public class runnableLinkedList {
     public static void main(String[] args) {
         System.out.println("Program Started");

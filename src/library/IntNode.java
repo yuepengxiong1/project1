@@ -38,9 +38,10 @@ public class IntNode
          IntNode addNewNode = new IntNode(item, null, data); // data, null (because its the last item on the list), item)
          link = addNewNode;
         // System.out.println("this.link: " + this.link);
-      } /*else if (this.link.sequenceNumber <= data && this.link.link.sequenceNumber < data) { //if starting node has seqNumber that is less than the data we are putting in, and our next node does not exits, we add an entry at the end
-         System.out.println("i have not implemented this yet");
-      } */
+      } else if (this.link.sequenceNumber <= item && item < this.link.link.sequenceNumber) { //if starting node has seqNumber that is less than the data we are putting in, and our next node does not exits, we add an entry at the end
+         IntNode addNodeInBetween = new IntNode(item, this.link.link, data);
+         this.link = addNodeInBetween;
+      } 
 
       //add code to consider if the current node already have a next node. rearrange the links
    }
@@ -54,8 +55,18 @@ public class IntNode
    {
       //set this node of next to be pointing 2 locations after this one, and the same for the one 2 location after to point to this one
       //if the element 2 locations away from this one is empty, then we just unlink this from the next one.
-      IntNode currentNode = this;
-	   this.link = null;
+
+      //check if there is a node 2 spaces away
+      IntNode twoNodesAway = this.link.link;
+
+      //if twoNodesWay has a node that is not null (meaning this node that is 2 away exits)
+      if(twoNodesAway != null){
+         //set this link to the one that is 2 away
+         this.link = twoNodesAway;
+      } else {
+         //otherwise we cut the link to the next node and link it to nothing
+         this.link = null;
+      }
    } 
    
    
@@ -131,7 +142,8 @@ public class IntNode
             nodeFromBefore = iterateIntNode;
             iterateIntNode = iterateIntNode.link;
 
-            //i felt like the try catch the best of what i am trynna do here
+            //i felt like the try catch the best of what i am trynna do here. this is here for the case if we get to the end
+            // of the list and we try to get iterate.seqNum again but it will throw an error b/c its DNE
             try {
                if (iterateIntNode.sequenceNumber == target){
                   return nodeFromBefore;
@@ -176,7 +188,8 @@ public class IntNode
          }
 
          //if our node right now is smaller or equal to our target and our target is less than the next node's seqNumber, return the node from before
-         if((iterateIntNode.sequenceNumber <= target) && target < iterateIntNode.link.sequenceNumber){
+
+         if((iterateIntNode.sequenceNumber < target) && target <= iterateIntNode.link.sequenceNumber){
             return iterateIntNode;
          } else {
             //set iterate IntNode to become the next one in line

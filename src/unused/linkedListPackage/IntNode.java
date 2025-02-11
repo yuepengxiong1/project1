@@ -1,4 +1,4 @@
-package linkedListPackage;
+package unused.linkedListPackage;
 
 public class IntNode {
     private int key;
